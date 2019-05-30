@@ -5,6 +5,7 @@ import cors from 'cors';
 import { DB_URL, PORT } from './shared/config';
 import * as routes from './routes';
 import { CacheService } from './services';
+import cookieParser from 'cookie-parser';
 import { Sync } from './jobs/sync';
 import logger from './shared/logger';
 
@@ -19,6 +20,7 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cookieParser());
 app.use(cors());
 
 app.use('/articles', routes.articleRouter);
@@ -31,4 +33,4 @@ app.listen(PORT);
 logger.info(`Mercado Track API running on port: ${PORT}`);
 
 CacheService.init();
-Sync.run();
+// Sync.run();
